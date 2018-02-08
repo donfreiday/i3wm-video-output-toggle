@@ -15,23 +15,28 @@ if [[ state -ge output_states ]] ; then
   state=0
 fi
 
+message=""
+
 case $state in
   [0]*)
-  echo "LVDS1 auto"
+  message="LVDS1 auto"
   xrandr --output LVDS1 --auto --output HDMI1 --off --output --VGA1 --off
   ;;
   [1]*)
-  echo "LVDS1 720 | HDMI1 1080"
+  message="LVDS1 720 | HDMI1 1080"
   xrandr --fb 1920x1080 --output LVDS1 --mode 1366x768 --scale-from 1920x1080 --output HDMI1 --mode 1920x1080 --scale 1x1 --same-as LVDS1
   ;;
   [2]*)
-  echo "HDMI1 auto"
+  message="HDMI1 auto"
   xrandr --output LVDS1 --off --output HDMI1 --auto --output --VGA1 --off
   ;;
   [3]*)
-  echo "LVDS1 auto | HDMI1 auto, right of LVDS1"
+  message="LVDS1 auto | HDMI1 auto, right of LVDS1"
   xrandr --output LVDS1 --auto --output HDMI1 --auto --right-of LVDS1
   ;;
 esac
+
+echo message
+notify-send "Video output changed" "$message"
 
 echo "${state}" > /tmp/i3wm-output-state.dat
