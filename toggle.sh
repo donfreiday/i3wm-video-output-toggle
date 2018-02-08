@@ -1,0 +1,37 @@
+#!/bin/sh
+output_states=4
+
+# if we don't have a file, start at zero
+if [ ! -f "/tmp/i3wm-output-state.dat" ] ; then
+  state=1
+# otherwise read the state from the file
+else
+  state=`cat /tmp/i3wm-output-state.dat`
+fi
+
+# increment the state
+state=`expr ${state} + 1`
+if [[ state -ge output_states ]] ; then
+  state=0
+fi
+
+case $state in
+  [0]*)
+  echo "LVDS1 auto"
+  xrandr --output LVDS1 --auto --output HDMI1 --off --output --VGA1 --off
+  ;;
+  [1]*)
+  echo "LVDS1 720 | HDMI1 1080"
+  xrandr --fb 1920x1080 --output LVDS1 --mode 1366x768 --scale-from 1920x1080 --output HDMI1 --mode 1920x1080 --scale 1x1 --same-as LVDS1
+  ;;
+  [2]*)
+  echo "HDMI1 auto"
+  xrandr --output LVDS1 --off --output HDMI1 --auto --output --VGA1 --off
+  ;;
+  [3]*)
+  echo "LVDS1 auto | HDMI1 auto, right of LVDS1"
+  xrandr --output LVDS1 --auto --output HDMI1 --auto --right-of LVDS1
+  ;;
+esac
+
+echo "${state}" > /tmp/i3wm-output-state.dat
