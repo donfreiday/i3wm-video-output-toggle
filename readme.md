@@ -6,6 +6,6 @@ A small bash script to toggle various video output configurations using xrandr.
 I added this to my i3 config to bind it to super+p:
 ```
 # Display toggle
-bindsym $mod+p ~/projects/i3wm-video-output-toggle/toggle.sh
+bindsym $mod+p exec ~/projects/i3wm-video-output-toggle/toggle.sh
 ```
 Your path may vary.
