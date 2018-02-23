@@ -3,7 +3,7 @@ output_states=4
 
 # if we don't have a file, start at zero
 if [ ! -f "/tmp/i3wm-output-state.dat" ] ; then
-  state=1
+  state=0
 # otherwise read the state from the file
 else
   state=`cat /tmp/i3wm-output-state.dat`
