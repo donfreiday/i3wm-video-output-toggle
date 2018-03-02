@@ -36,7 +36,7 @@ case $state in
   ;;
 esac
 
-echo message
+echo $message
 notify-send "Video output changed" "$message"
 
 echo "${state}" > /tmp/i3wm-output-state.dat
